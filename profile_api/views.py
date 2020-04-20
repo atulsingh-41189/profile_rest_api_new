@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import viewsets
+from rest_framework import filters
 
 from profile_api import models
 from profile_api import serializers
@@ -99,6 +100,8 @@ class UserProfileViewset(viewsets.ModelViewSet):
     """Handle creating and updating profile"""
     serializer_class =  serializers.UserProfileSerializer
     queryset = models.UserProfile.objects.all()
-    authentication_class = (TokenAuthentication,)#How user authenticate
+    authentication_classes = (TokenAuthentication,)#How user authenticate
     #Then how user have permission for operation:
     permission_classes = (permissions.UpdateOwnProfile,)
+    fiter_backends = (filters.SearchFilter,)
+    search_fields = ('name', 'email',)

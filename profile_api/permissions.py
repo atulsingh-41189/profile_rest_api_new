@@ -8,4 +8,4 @@ class UpdateOwnProfile(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:  #get method is safe method list and create profile
             return True
 
-        return obj.id == request.id
+        return obj.id == request.user.id
